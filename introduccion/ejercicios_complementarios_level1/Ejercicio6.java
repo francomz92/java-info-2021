@@ -1,11 +1,9 @@
-package ejercicios_complementarios_level1;
-
 import java.util.Scanner;
 
 /* Se desea una aplicación que solicite 2 números enteros y realice la operación
-de multiplicación por sumas sucesivas (sin uso de librerías). */
+de potencia (sin uso de librerías). */
 
-public class Ejercicio5 {
+public class Ejercicio6 {
     public static void main(String[] args) {
         int[] valores = pedirDatos();
         int valor1 = valores[0];
@@ -13,7 +11,7 @@ public class Ejercicio5 {
 
         System.out.println("--------");
 
-        multiplicacion(valor1, valor2);
+        potencia(valor1, valor2);
     }
 
     static int[] pedirDatos() {
@@ -26,10 +24,13 @@ public class Ejercicio5 {
         return valores;
     }
 
-    // Calcula la multiplicación valor1 x valor2
-    static void multiplicacion(int valor1, int valor2) {
-        int resultado = valor1 * valor2;
-        String mensaje = String.format("%d x %d = %d", valor1, valor2, resultado);
+    // Calcula la potencia valor1 elevado a valor2
+    static void potencia(int valor1, int valor2) {
+        int resultado = valor1;
+        for (int i = 1; i < valor2 ; i++) {
+            resultado *= valor1;
+        }
+        String mensaje = String.format("%d elvedo a %d = %d", valor1, valor2, resultado);
         System.out.println(mensaje);
     }
 }

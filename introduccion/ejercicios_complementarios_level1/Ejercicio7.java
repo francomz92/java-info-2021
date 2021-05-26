@@ -1,5 +1,3 @@
-package ejercicios_complementarios_level1;
-
 import java.util.Scanner;
 
 /* Realizar un Programa que dado un String de entrada en minúsculas lo convierta

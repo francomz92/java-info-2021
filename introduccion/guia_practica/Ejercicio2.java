@@ -1,4 +1,3 @@
-package guia_practica;
 import java.util.Scanner;
 
 /* Ejercicio 2: Realizar un programa que al ejecutar se pueda ingresar 3 numeros enteros,

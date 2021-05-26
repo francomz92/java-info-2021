@@ -1,4 +1,3 @@
-package guia_practica;
 import java.util.Scanner;
 
 /* Ejercicio 6: Debemos realizar un programa que nos realizará una pregunta si queremos realizar

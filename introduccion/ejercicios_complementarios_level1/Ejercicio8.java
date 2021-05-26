@@ -1,5 +1,3 @@
-package ejercicios_complementarios_level1;
-
 import java.util.Scanner;
 
 /* Crear una aplicación que solicite de entrada los datos de una persona en este orden:

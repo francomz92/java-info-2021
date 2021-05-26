@@ -1,4 +1,3 @@
-package guia_practica;
 import java.util.HashMap;
 import java.util.Scanner;
 

@@ -1,4 +1,3 @@
-package guia_practica;
 import java.util.Scanner;
 
 /* Ejercicio 3: Tendremos un sistema que debe clasificar el resultado de una evaluación.

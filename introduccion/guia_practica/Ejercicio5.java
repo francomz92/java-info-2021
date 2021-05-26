@@ -1,4 +1,3 @@
-package guia_practica;
 import java.util.Scanner;
 
 /* Ejercicio 5: Desarrollar un programa que dado un número entero ingresado, nos retorne los

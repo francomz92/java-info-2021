@@ -1,5 +1,3 @@
-package ejercicios_complementarios_level1;
-
 import java.util.Scanner;
 
 /* Confeccionar un programa que dado un número entero como dato de entrada imprima
