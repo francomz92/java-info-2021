@@ -1,6 +1,6 @@
 Carlos,Sanchez,20-01-1980,45678.08
 Franco,Muñoz,20-02-1982,41678.08
-Franco,Aguirre,20-02-1982,41678.08
 Jose,Suarez,20-03-1983,42678.08
 Lucia,Martinez,20-04-1984,43678.08
 Sofia,Lujan,20-05-1985,44678.08
+Franco,Aguirre,20-02-1982,41678.08
