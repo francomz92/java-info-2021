@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.informatorio.utils.EmpleadoTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.437 s <<< FAILURE! - in com.informatorio.utils.EmpleadoTest
+creaListaPersona_Test(com.informatorio.utils.EmpleadoTest)  Time elapsed: 0.045 s  <<< FAILURE!
+java.lang.AssertionError: expected: java.util.ArrayList<[Carlos Sanchez: $45678.08, Franco Muñoz: $41678.08, Jose Suarez: $42678.08, Lucia Martinez: $43678.08, Sofia Lujan: $44678.08, Franco Aguirre: $41678.08]> but was: java.util.ArrayList<[Carlos Sanchez: $45678.08, Franco Muñoz: $41678.08, Jose Suarez: $42678.08, Lucia Martinez: $43678.08, Sofia Lujan: $44678.08, Franco Aguirre: $41678.08]>
+	at com.informatorio.utils.EmpleadoTest.creaListaPersona_Test(EmpleadoTest.java:25)
+
+getOrdenABC_Test(com.informatorio.utils.EmpleadoTest)  Time elapsed: 0.016 s  <<< FAILURE!
+java.lang.AssertionError: expected: java.util.ArrayList<[Carlos Sanchez: $45678.08, Franco Muñoz: $41678.08, Franco Aguirre: $41678.08, Jose Suarez: $42678.08, Lucia Martinez: $43678.08, Sofia Lujan: $44678.08]> but was: java.util.ArrayList<[Carlos Sanchez: $45678.08, Franco Muñoz: $41678.08, Franco Aguirre: $41678.08, Jose Suarez: $42678.08, Lucia Martinez: $43678.08, Sofia Lujan: $44678.08]>
+	at com.informatorio.utils.EmpleadoTest.getOrdenABC_Test(EmpleadoTest.java:75)
+
