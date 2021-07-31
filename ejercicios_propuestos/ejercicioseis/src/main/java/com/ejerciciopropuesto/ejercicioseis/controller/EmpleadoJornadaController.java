@@ -14,8 +14,12 @@ import java.util.Optional;
 @Controller
 public class EmpleadoJornadaController {
 
-    @Autowired
     private EmpleadoJornadaRepository repository;
+
+    @Autowired
+    public EmpleadoJornadaController(EmpleadoJornadaRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping(value = "/empleados/jornada")
     public @ResponseBody Iterable<EmpleadoJornada> listaEmpleadosJornada() {return repository.findAll();}

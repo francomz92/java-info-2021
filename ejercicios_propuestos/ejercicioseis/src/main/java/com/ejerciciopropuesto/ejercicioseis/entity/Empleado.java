@@ -1,18 +1,20 @@
 package com.ejerciciopropuesto.ejercicioseis.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 
-@Entity
-@Table(name = "Empleados")
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 25)
+    @Max(25)
+    @NotEmpty
     private String nombre;
-    @Column(length = 25)
+    @Max(25)
+    @NotEmpty
     private String apellido;
 
     public Empleado() {}

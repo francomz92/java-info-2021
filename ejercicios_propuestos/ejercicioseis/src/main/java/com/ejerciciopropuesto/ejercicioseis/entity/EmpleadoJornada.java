@@ -1,14 +1,18 @@
 package com.ejerciciopropuesto.ejercicioseis.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "EmpleadosJornada")
-@PrimaryKeyJoinColumn(name = "empleadosId")
 public class EmpleadoJornada extends Empleado {
 
-    @Column(length = 8)
+    @Max(8)
+    @NotEmpty
+    @DecimalMax("2")
     private BigDecimal pagoHora;
 
     public EmpleadoJornada() {}

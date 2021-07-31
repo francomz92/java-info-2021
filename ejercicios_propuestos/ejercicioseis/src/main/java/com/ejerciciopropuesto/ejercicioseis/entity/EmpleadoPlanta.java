@@ -1,19 +1,24 @@
 package com.ejerciciopropuesto.ejercicioseis.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "EmpleadosPlanta")
-@PrimaryKeyJoinColumn(name = "empleadosId")
 public class EmpleadoPlanta extends Empleado {
 
     private LocalDate fechaInicio;
-    @Column(length = 25)
+    @Max(25)
+    @NotEmpty
     private String puesto;
-    @Column(length = 8)
+    @Max(8)
+    @NotEmpty
+    @DecimalMax("2")
     private BigDecimal sueldo;
 
     public EmpleadoPlanta() {}

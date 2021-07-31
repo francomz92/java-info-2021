@@ -1,6 +1,9 @@
 package com.ejerciciopropuesto.ejercicioseis.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,13 +11,15 @@ import java.time.format.DateTimeFormatterBuilder;
 
 @Entity
 @Table(name = "EmpleadosContrato")
-@PrimaryKeyJoinColumn(name = "empleadosId")
 public class EmpleadoContrato extends Empleado {
 
     private LocalDate fechaVencimiento;
-    @Column(length = 30)
+    @Max(30)
+    @NotEmpty
     private String especialidad;
-    @Column(length = 8)
+    @Max(8)
+    @NotEmpty
+    @DecimalMax("2")
     private BigDecimal sueldo;
 
     public EmpleadoContrato(){}

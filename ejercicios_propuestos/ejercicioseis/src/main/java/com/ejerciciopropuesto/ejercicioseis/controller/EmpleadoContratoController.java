@@ -15,9 +15,12 @@ import java.util.Optional;
 @Controller
 public class EmpleadoContratoController {
 
-    @Autowired
     private EmpleadoContratoRepository repository;
 
+    @Autowired
+    public EmpleadoContratoController(EmpleadoContratoRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping(value = "/empleados/contrato")
     public @ResponseBody Iterable<EmpleadoContrato> listaEmpleadosContrato() {return repository.findAll();}

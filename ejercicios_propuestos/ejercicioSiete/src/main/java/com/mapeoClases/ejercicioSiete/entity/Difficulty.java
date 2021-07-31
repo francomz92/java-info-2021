@@ -1,2 +1,7 @@
-package com.mapeoClases.ejercicioSiete.entity;public class Difficulty {
+package com.mapeoClases.ejercicioSiete.entity;
+
+public enum Difficulty {
+    FACIL,
+    INTERMEDIO,
+    DIFICIL;
 }

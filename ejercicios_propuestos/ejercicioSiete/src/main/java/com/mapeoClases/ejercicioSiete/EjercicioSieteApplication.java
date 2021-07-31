@@ -1,13 +1,13 @@
-package com.ejerciciopropuesto.ejercicioseis;
+package com.mapeoClases.ejercicioSiete;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EjercicioseisApplication {
+public class EjercicioSieteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EjercicioseisApplication.class, args);
+		SpringApplication.run(EjercicioSieteApplication.class, args);
 	}
 
 }

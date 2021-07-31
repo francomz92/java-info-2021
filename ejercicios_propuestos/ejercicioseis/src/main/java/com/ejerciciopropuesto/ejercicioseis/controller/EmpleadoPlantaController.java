@@ -13,8 +13,12 @@ import java.util.Optional;
 @Controller
 public class EmpleadoPlantaController {
 
-    @Autowired
     private EmpleadoPlantaRepository repository;
+
+    @Autowired
+    public  EmpleadoPlantaController(EmpleadoPlantaRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping(value = "/empleados/planta")
     public @ResponseBody Iterable<EmpleadoPlanta> listaEmpleadosPlanta() {return repository.findAll();}
