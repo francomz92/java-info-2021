@@ -2,11 +2,9 @@ package com.spring_rest_LevelUno.tienda.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 
 @Entity
@@ -20,8 +18,11 @@ public class Usuario {
     private String direccion;
     @CreationTimestamp
     private Instant fechaAlta;
+    @OneToMany
+    private List<Carrito> id_carrito;
 
-    public Usuario(String nombre, String apellido, String direccion){
+    public Usuario(String nombre, String apellido, String direccion, List<Carrito> carritos){
+        this.id_carrito = carritos;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;

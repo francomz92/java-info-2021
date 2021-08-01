@@ -3,6 +3,7 @@ package com.spring_rest_LevelUno.tienda.entity;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,10 +15,18 @@ public class Carrito {
     private Long id;
     @CreationTimestamp
     private LocalDate fechaCreacion;
+    @NotNull
     @ManyToOne
     private Usuario id_usuario;
     @ManyToMany
     private List<Detalle> detalleCarrito;
+    private String estado;
+
+    public Carrito(Usuario id_usuario, List<Detalle> detalleCarrito) {
+        this.estado = "En curso";
+        this.id_usuario = id_usuario;
+        this.detalleCarrito = detalleCarrito;
+    }
 
     public Carrito(){}
 
