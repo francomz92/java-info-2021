@@ -1,5 +1,7 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -10,52 +12,40 @@ public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate fechaCompra;
-    @OneToOne
-    private Usuario usuario;
-    @OneToMany
-    private List<DetalleProducto> detalle;
-    private String estado = "En curso";
+    @CreationTimestamp
+    private LocalDate fechaCreacion;
+    @ManyToOne
+    private Usuario id_usuario;
+    @ManyToMany
+    private List<Detalle> detalleCarrito;
 
     public Carrito(){}
-
-    public void estadoCerrado() {
-        this.estado = "Cerrado";
-    }
 
     public Long getId() {
         return id;
     }
 
-    public LocalDate getFechaCompra() {
-        return fechaCompra;
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getId_usuario() {
+        return id_usuario;
     }
 
-    public List<DetalleProducto> getDetalle() {
-        return detalle;
+    public List<Detalle> getDetalleCarrito() {
+        return detalleCarrito;
     }
 
-    public String getEstado() {
-        return estado;
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
-    public void setFechaCompra(LocalDate fechaCompra) {
-        this.fechaCompra = fechaCompra;
+    public void setId_usuario(Usuario id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public void setDetalle(List<DetalleProducto> detalle) {
-        this.detalle = detalle;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDetalleCarrito(List<Detalle> detalleCarrito) {
+        this.detalleCarrito = detalleCarrito;
     }
 }

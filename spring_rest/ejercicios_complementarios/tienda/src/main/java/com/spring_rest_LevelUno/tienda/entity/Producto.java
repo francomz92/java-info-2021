@@ -17,7 +17,14 @@ public class Producto {
     private BigDecimal precioUnitario;
     private String categoria;
 
-    public Producto() {}
+    public Producto(String codigoInventario, String nombre, String descripcion, BigDecimal precioUnitario, String categoria) {
+        this.codigoInventario = codigoInventario;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioUnitario = precioUnitario;
+        this.categoria = categoria;
+    }
+    public Producto(){}
 
     public Long getId() {
         return id;

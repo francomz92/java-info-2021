@@ -21,6 +21,11 @@ public class Usuario {
     @CreationTimestamp
     private Instant fechaAlta;
 
+    public Usuario(String nombre, String apellido, String direccion){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+    }
     public Usuario(){}
 
     public Long getId() {
