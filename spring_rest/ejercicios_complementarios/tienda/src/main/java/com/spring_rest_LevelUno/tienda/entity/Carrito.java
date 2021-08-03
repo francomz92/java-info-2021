@@ -1,10 +1,10 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -14,11 +14,13 @@ public class Carrito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @CreationTimestamp
-    private LocalDate fechaCreacion;
-    @NotNull
-    @ManyToOne
+    private Instant fechaCreacion;
+    @ManyToOne(targetEntity = Usuario.class)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @JsonIgnore
     private Usuario id_usuario;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Detalle.class)
+    @JoinColumn(name = "id_detalle", referencedColumnName = "id")
     private List<Detalle> detalleCarrito;
     private String estado;
 
@@ -34,7 +36,7 @@ public class Carrito {
         return id;
     }
 
-    public LocalDate getFechaCreacion() {
+    public Instant getFechaCreacion() {
         return fechaCreacion;
     }
 
@@ -46,7 +48,7 @@ public class Carrito {
         return detalleCarrito;
     }
 
-    public void setFechaCreacion(LocalDate fechaCreacion) {
+    public void setFechaCreacion(Instant fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -56,5 +58,13 @@ public class Carrito {
 
     public void setDetalleCarrito(List<Detalle> detalleCarrito) {
         this.detalleCarrito = detalleCarrito;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

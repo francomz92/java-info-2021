@@ -18,7 +18,7 @@ public class Usuario {
     private String direccion;
     @CreationTimestamp
     private Instant fechaAlta;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Carrito.class, mappedBy = "id")
     private List<Carrito> id_carrito;
 
     public Usuario(String nombre, String apellido, String direccion, List<Carrito> carritos){
@@ -61,5 +61,13 @@ public class Usuario {
 
     public void setFechaAlta(Instant fechaAlta) {
         this.fechaAlta = fechaAlta;
+    }
+
+    public List<Carrito> getId_carrito() {
+        return id_carrito;
+    }
+
+    public void setId_carrito(List<Carrito> id_carrito) {
+        this.id_carrito = id_carrito;
     }
 }

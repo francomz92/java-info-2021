@@ -21,12 +21,17 @@ public class ProductoController {
     }
 
     @GetMapping(value = "/productos/{id}")
-    public Optional<Producto> getUsuario(@PathVariable("id") Long id) {
+    public Optional<Producto> getProducto(@PathVariable("id") Long id) {
         return productoRepository.findById(id);
     }
 
+//    @GetMapping(value = "/productos/{nombre}")
+//    public Producto getProductoByNombre(@PathVariable("nombre") String nombre) {
+//        return productoRepository.findByNombre(nombre);
+//    }
+
     @PostMapping(value = "/productos")
-    public Producto createproducto(@Valid @RequestBody Producto producto) {
+    public Producto createProducto(@Valid @RequestBody Producto producto) {
         return productoRepository.save(producto);
     }
 

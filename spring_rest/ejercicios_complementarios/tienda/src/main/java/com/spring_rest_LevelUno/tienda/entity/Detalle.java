@@ -8,7 +8,8 @@ public class Detalle {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-   @ManyToOne
+   @ManyToOne(targetEntity = Producto.class)
+   @JoinColumn(name = "id_producto", referencedColumnName = "id")
    private Producto producto;
    private Integer cantidad;
    private BigDecimal total;
