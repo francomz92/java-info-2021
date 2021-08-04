@@ -1,6 +1,6 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,12 +13,15 @@ public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @CreationTimestamp
     private Instant fechaCreacion;
-    @ManyToOne(targetEntity = Usuario.class)
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @JsonIgnore
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_usuario")
+    @JsonBackReference
     private Usuario id_usuario;
+
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Detalle.class)
     @JoinColumn(name = "id_detalle", referencedColumnName = "id")
     private List<Detalle> detalleCarrito;
