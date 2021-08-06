@@ -25,10 +25,15 @@ public class ProductoController {
         return productoRepository.findById(id);
     }
 
-//    @GetMapping(value = "/productos/{nombre}")
-//    public Producto getProductoByNombre(@PathVariable("nombre") String nombre) {
-//        return productoRepository.findByNombre(nombre);
-//    }
+
+    //    ---------------------- FindByNombre ---------------------- //
+
+    @GetMapping(value = "/productos/{nombre}")
+    public Producto getProductoByNombre(@PathVariable("nombre") String nombre) {
+        return productoRepository.findByNombre(nombre);
+    }
+
+
 
     @PostMapping(value = "/productos")
     public Producto createProducto(@Valid @RequestBody Producto producto) {
