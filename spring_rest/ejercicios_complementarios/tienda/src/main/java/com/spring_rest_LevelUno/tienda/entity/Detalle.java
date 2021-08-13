@@ -4,22 +4,29 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "detalle")
 public class Detalle {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-   @ManyToOne(targetEntity = Producto.class)
-   @JoinColumn(name = "id_producto", referencedColumnName = "id")
+
+   @ManyToOne
+   @JoinColumn(name = "FK_producto")
    private Producto producto;
+
    private Integer cantidad;
    private BigDecimal total;
+
+   public Detalle(){}
 
    public Detalle(Producto producto, Integer cantidad) {
       this.producto = producto;
       this.cantidad = cantidad;
       this.total = this.getDefaulTotal();
    }
-   public Detalle(){}
+
+
+   //  -----> Getters Methods <-----
 
    public Long getId() {
       return id;
@@ -37,20 +44,18 @@ public class Detalle {
       return total;
    }
 
-   public void setProducto(Producto producto) {
-      this.producto = producto;
-   }
+   //  -----> Setters Methods <-----
 
-   public void setCantidad(Integer cantidad) {
-      this.cantidad = cantidad;
-   }
+   public void setProducto(Producto producto) { this.producto = producto; }
+
+   public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
+
+   public void setTotal() { this.total = this.producto.getPrecioUnitario().multiply(new BigDecimal(this.cantidad)); }
+
+   //   ------> Customs Methods <-----
 
    private BigDecimal getDefaulTotal() {
       assert this.producto != null;
       return this.producto.getPrecioUnitario().multiply(new BigDecimal(this.cantidad));
-   }
-
-   public void setTotal() {
-      this.total = this.producto.getPrecioUnitario().multiply(new BigDecimal(this.cantidad));
    }
 }

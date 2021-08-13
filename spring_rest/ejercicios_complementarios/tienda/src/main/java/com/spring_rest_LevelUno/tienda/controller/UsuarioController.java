@@ -18,9 +18,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/usuarios/{id}")
-    public Optional<Usuario> getUsuario(@PathVariable("id") Long id) {
-        return usuarioRepository.findById(id);
-    }
+    public Optional<Usuario> getUsuarioById(@PathVariable("id") Long id) { return usuarioRepository.findById(id); }
 
     @PostMapping(value = "/usuarios")
     public Usuario createUsuario(@RequestBody Usuario usuario) {

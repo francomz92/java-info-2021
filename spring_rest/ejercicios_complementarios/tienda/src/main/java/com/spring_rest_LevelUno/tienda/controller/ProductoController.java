@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,19 +22,14 @@ public class ProductoController {
     }
 
     @GetMapping(value = "/productos/{id}")
-    public Optional<Producto> getProducto(@PathVariable("id") Long id) {
+    public Optional<Producto> getProductoById(@PathVariable("id") Long id) {
         return productoRepository.findById(id);
     }
 
-
-    //    ---------------------- FindByNombre ---------------------- //
-
-    @GetMapping(value = "/productos/{nombre}")
-    public Producto getProductoByNombre(@PathVariable("nombre") String nombre) {
-        return productoRepository.findByNombre(nombre);
+    @GetMapping(value = "/productos/Qs")
+    public List<Producto> getProductoByNombre(@RequestParam("nombre") String nombre) {
+        return productoRepository.findByNombreContaining(nombre);
     }
-
-
 
     @PostMapping(value = "/productos")
     public Producto createProducto(@Valid @RequestBody Producto producto) {

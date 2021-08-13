@@ -5,9 +5,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "carrito")
 public class Carrito {
 
     @Id
@@ -17,23 +19,29 @@ public class Carrito {
     @CreationTimestamp
     private Instant fechaCreacion;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_usuario")
-    @JsonBackReference
-    private Usuario id_usuario;
+    private Usuario usuario;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Detalle.class)
-    @JoinColumn(name = "id_detalle", referencedColumnName = "id")
-    private List<Detalle> detalleCarrito;
+    @Transient
+    private String comprador;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Detalle> detalles = new ArrayList<>();
+
     private String estado;
 
-    public Carrito(Usuario id_usuario, List<Detalle> detalleCarrito) {
+    public Carrito(){}
+
+    public Carrito(Usuario usuario, List<Detalle> detalles) {
         this.estado = "En curso";
-        this.id_usuario = id_usuario;
-        this.detalleCarrito = detalleCarrito;
+        this.usuario = usuario;
+        this.detalles = detalles;
     }
 
-    public Carrito(){}
+
+    //    -----> Getters Method <-----
 
     public Long getId() {
         return id;
@@ -43,31 +51,35 @@ public class Carrito {
         return fechaCreacion;
     }
 
-    public Usuario getId_usuario() {
-        return id_usuario;
-    }
-
-    public List<Detalle> getDetalleCarrito() {
-        return detalleCarrito;
-    }
-
-    public void setFechaCreacion(Instant fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public void setId_usuario(Usuario id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public void setDetalleCarrito(List<Detalle> detalleCarrito) {
-        this.detalleCarrito = detalleCarrito;
+    public List<Detalle> getDetalles() {
+        return detalles;
     }
 
     public String getEstado() {
         return estado;
     }
 
+    public String getComprador() {
+        return this.usuario.getNombre().concat(" ").concat(usuario.getApellido());
+    }
+
+    // -----> Setters Methods <-----
+
+    public void setFechaCreacion(Instant fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setDetalles(List<Detalle> detalles) {
+        this.detalles = detalles;
+    }
+
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public void addDetalles(Detalle detalle) { this.detalles.add(detalle); }
 }

@@ -1,9 +1,9 @@
 package com.spring_rest_LevelUno.tienda.repository;
 
 import com.spring_rest_LevelUno.tienda.entity.Carrito;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CarritoRepository extends CrudRepository<Carrito, Long> {
+public interface CarritoRepository extends JpaRepository<Carrito, Long> {
 }

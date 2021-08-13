@@ -4,33 +4,47 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Debe proporcionar un nombre")
+    @NotBlank(message = "Debe proporcionar un nombre")
     private String nombre;
+
+    @NotNull(message = "Debe proporcionar un apellido")
+    @NotBlank(message = "Debe proporcionar un apellido")
     private String apellido;
+
     private String direccion;
 
     @CreationTimestamp
     private Instant fechaAlta;
 
-    @OneToMany(mappedBy = "id_usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Carrito.class, orphanRemoval = true)
     @JsonManagedReference
-    private List<Carrito> id_carrito = new ArrayList<>();
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Carrito.class, orphanRemoval = true)
+    private List<Carrito> carritos = new ArrayList<>();
+
+    public Usuario(){}
 
     public Usuario(String nombre, String apellido, String direccion){
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
     }
-    public Usuario(){}
+
+
+    //  -----> Getters Method <-----
 
     public Long getId() {
         return id;
@@ -40,15 +54,19 @@ public class Usuario {
         return nombre;
     }
 
-    public String getApellido() {return apellido;}
+    public String getApellido() { return apellido; }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public Instant getFechaAlta() {
-        return fechaAlta;
-    }
+    public Instant getFechaAlta() {return fechaAlta;}
+
+    public List<Carrito> getCarritos() { return carritos; }
+
+    //  -----> Setters Methods <-----
+
+    public void setId(Long id) { this.id = id; }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -66,14 +84,11 @@ public class Usuario {
         this.fechaAlta = fechaAlta;
     }
 
-    public List<Carrito> getId_carrito() {
-        return id_carrito;
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
     }
 
-    public void setId_carrito(List<Carrito> id_carrito) {
-        this.id_carrito = id_carrito;
-    }
     public void addCarrito(Carrito carrito) {
-        this.id_carrito.add(carrito);
+        this.carritos.add(carrito);
     }
 }

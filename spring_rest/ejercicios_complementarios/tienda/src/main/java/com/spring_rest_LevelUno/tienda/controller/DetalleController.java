@@ -19,7 +19,7 @@ public class DetalleController {
    }
 
    @GetMapping(value = "/detalles/{id}")
-   public Optional<Detalle> getDetalle(@PathVariable("id") Long id) {
+   public Optional<Detalle> getDetalleById(@PathVariable("id") Long id) {
       return detalleRepository.findById(id);
    }
 

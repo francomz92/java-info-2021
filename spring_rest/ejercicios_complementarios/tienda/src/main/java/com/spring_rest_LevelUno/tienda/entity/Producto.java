@@ -5,17 +5,21 @@ import java.math.BigDecimal;
 
 
 @Entity
+@Table(name = "producto")
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     private String codigoInventario;
     private String nombre;
     private String descripcion;
     private BigDecimal precioUnitario;
     private String categoria;
+
+    public Producto(){}
 
     public Producto(String codigoInventario, String nombre, String descripcion, BigDecimal precioUnitario, String categoria) {
         this.codigoInventario = codigoInventario;
@@ -24,7 +28,9 @@ public class Producto {
         this.precioUnitario = precioUnitario;
         this.categoria = categoria;
     }
-    public Producto(){}
+
+
+//  -----> Getters Method <-----
 
     public Long getId() {
         return id;
@@ -34,29 +40,21 @@ public class Producto {
         return codigoInventario;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getDescripcion() { return descripcion; }
 
-    public BigDecimal getPrecioUnitario() {
-        return precioUnitario;
-    }
+    public BigDecimal getPrecioUnitario() { return precioUnitario; }
 
-    public String getCategoria() {
-        return categoria;
-    }
+    public String getCategoria() { return categoria; }
 
-    public void setCodigoInventario(String codigoInventario) {
-        this.codigoInventario = codigoInventario;
-    }
+//  -----> Setters Methods <-----
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setId(Long id) { this.id = id; }
+
+    public void setCodigoInventario(String codigoInventario) { this.codigoInventario = codigoInventario; }
+
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
