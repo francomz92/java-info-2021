@@ -26,9 +26,14 @@ public class ProductoController {
         return productoRepository.findById(id);
     }
 
-    @GetMapping(value = "/productos/Qs")
+    @GetMapping(value = "/productos/Qn")
     public List<Producto> getProductoByNombre(@RequestParam("nombre") String nombre) {
         return productoRepository.findByNombreContaining(nombre);
+    }
+
+    @GetMapping(value = "/productos/Qc")
+    public List<Producto> getProductoByCategoria(@RequestParam("categoria") String categoria) {
+        return productoRepository.findByCategoria(categoria);
     }
 
     @PostMapping(value = "/productos")
