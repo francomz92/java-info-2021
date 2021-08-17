@@ -1,5 +1,8 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -13,6 +16,12 @@ public class Detalle {
    @ManyToOne
    @JoinColumn(name = "FK_producto")
    private Producto producto;
+
+//   @JsonBackReference
+   @JsonIgnore
+   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @JoinColumn(name = "FK_carrito")
+   private Carrito  carrito;
 
    private Integer cantidad;
    private BigDecimal total;
@@ -44,6 +53,8 @@ public class Detalle {
       return total;
    }
 
+   public Carrito getCarrito() { return carrito; }
+
    //  -----> Setters Methods <-----
 
    public void setProducto(Producto producto) { this.producto = producto; }
@@ -51,6 +62,10 @@ public class Detalle {
    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
 
    public void setTotal() { this.total = this.producto.getPrecioUnitario().multiply(new BigDecimal(this.cantidad)); }
+
+   public void setCarrito(Carrito carrito) {
+      this.carrito = carrito;
+   }
 
    //   ------> Customs Methods <-----
 

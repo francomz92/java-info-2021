@@ -1,6 +1,7 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Carrito {
     @CreationTimestamp
     private Instant fechaCreacion;
 
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_usuario")
     private Usuario usuario;
@@ -27,7 +28,8 @@ public class Carrito {
     @Transient
     private String comprador;
 
-    @OneToMany(fetch = FetchType.LAZY)
+//    @JsonManagedReference
+    @OneToMany(mappedBy = "carrito", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Detalle> detalles = new ArrayList<>();
 
     private String estado;
@@ -60,7 +62,7 @@ public class Carrito {
     }
 
     public String getComprador() {
-        return this.usuario.getNombre().concat(" ").concat(usuario.getApellido());
+        return this.usuario.getNombre().concat(" ").concat(this.usuario.getApellido());
     }
 
     // -----> Setters Methods <-----
@@ -81,5 +83,7 @@ public class Carrito {
         this.estado = estado;
     }
 
-    public void addDetalles(Detalle detalle) { this.detalles.add(detalle); }
+    public void addDetalles(Detalle detalle) {
+        this.detalles.add(detalle);
+    }
 }

@@ -1,5 +1,6 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,7 +32,8 @@ public class Usuario {
     @CreationTimestamp
     private Instant fechaAlta;
 
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Carrito.class, orphanRemoval = true)
     private List<Carrito> carritos = new ArrayList<>();
 
