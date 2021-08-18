@@ -53,6 +53,9 @@ public class CarritoController {
       requestCarrito.getDetalles().forEach(detalle -> {
          detalle.setCarrito(carrito);
          detalle.setTotal();
+         if (detalle.getCantidad().equals(0)) {
+            requestCarrito.getDetalles().remove(detalle);
+         }
       });
       carrito.setDetalles(requestCarrito.getDetalles());
       return carritoRepository.saveAndFlush(carrito);
