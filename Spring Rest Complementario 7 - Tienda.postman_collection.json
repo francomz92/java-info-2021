@@ -1,0 +1,484 @@
+{
+	"info": {
+		"_postman_id": "6574053a-fcde-425c-9f89-f6c47befb987",
+		"name": "Spring Rest Complementario 7 - Tienda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "GetAllUsuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Franco\",\n    \"apellido\": \"Muñoz\",\n    \"direccion\": \"Siempreviva\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"José\",\n    \"apellido\": \"Muñoz\",\n    \"direccion\": \"Siempreviva\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUsuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "productos",
+			"item": [
+				{
+					"name": "GetAllProductos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/productos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateProducto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigoInventario\": \"CAMP-001\",\n    \"nombre\": \"Campera Deportiva Adidas\",\n    \"descripcion\": \"Roja\",\n    \"precioUnitario\": 450,\n    \"categoria\": \"Abirgos - Ropa Deportiva\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/productos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProducto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/productos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutProducto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Remera Adidas\",\n    \"descripcion\": \"Blanco y Negro\",\n    \"precioUnitario\": 850,\n    \"categoria\": \"Verano - Ropa Deportiva\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/productos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProducto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/productos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductoByNombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "detalles producto",
+			"item": [
+				{
+					"name": "GetAllDetalle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/detalles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"detalles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateDetalle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"producto\": {\n        \"id\": 1,\n        \"codigoInventario\": \"CAMP-001\",\n        \"nombre\": \"Campera Deportiva Adidas\",\n        \"descripcion\": \"Roja\",\n        \"precioUnitario\": 450,\n        \"categoria\": \"Abirgos - Ropa Deportiva\"\n    },\n    \"cantidad\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/detalles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"detalles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetalle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/detalles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"detalles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutDetalle",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cantidad\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/detalles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"detalles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteDetalle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/detalles/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"detalles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "carritos",
+			"item": [
+				{
+					"name": "GetAllCarritos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1/carritos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1",
+								"carritos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCreateCarrito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"detalles\": [\n                    {\n                        \"producto\": {\n                            \"id\": 1,\n                            \"codigoInventario\": \"CAMP-001\",\n                            \"nombre\": \"Campera Deportiva Adidas\",\n                            \"descripcion\": \"Roja\",\n                            \"precioUnitario\": 450,\n                            \"categoria\": \"Abirgos - Ropa Deportiva\"\n                        },\n                        \"cantidad\": 2\n                    }\n    ],\n    \"estado\": \"En curso\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios/1/carritos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1",
+								"carritos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCarrito",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1/carritos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1",
+								"carritos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutCarrito",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"detalles\": [\n        {\n            \"id\": 1,\n            \"producto\": {\n                \"id\": 1,\n                \"codigoInventario\": \"CAMP-001\",\n                \"nombre\": \"Campera Deportiva Adidas\",\n                \"descripcion\": \"Roja\",\n                \"precioUnitario\": 450.00,\n                \"categoria\": \"Abirgos - Ropa Deportiva\"\n            },\n            \"cantidad\": 3\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios/1/carritos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1",
+								"carritos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCarrito",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1/carritos/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1",
+								"carritos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
