@@ -1,8 +1,11 @@
 package com.spring_rest_LevelUno.tienda.controller;
 
 import com.spring_rest_LevelUno.tienda.entity.Producto;
+import com.spring_rest_LevelUno.tienda.exceptions.ResourceNotFound;
 import com.spring_rest_LevelUno.tienda.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,42 +20,62 @@ public class ProductoController {
     private ProductoRepository productoRepository;
 
     @GetMapping(value = "/productos")
-    public Iterable<Producto> getProductos(){
-        return productoRepository.findAll();
+    public ResponseEntity<?> getProductos(){
+        return ResponseEntity.status(HttpStatus.OK).body(productoRepository.findAll());
     }
 
     @GetMapping(value = "/productos/{id}")
-    public Optional<Producto> getProductoById(@PathVariable("id") Long id) {
-        return productoRepository.findById(id);
+    public ResponseEntity<?> getProductoById(@PathVariable("id") Long id) {
+        Optional<Producto> producto = productoRepository.findById(id);
+        if (producto.isEmpty()) {
+            throw new ResourceNotFound("¡No existe el producto solicitado!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(producto);
     }
 
     @GetMapping(value = "/productos/Qn")
-    public List<Producto> getProductoByNombre(@RequestParam("nombre") String nombre) {
-        return productoRepository.findByNombreContaining(nombre);
+    public ResponseEntity<?> getProductoByNombre(@RequestParam("nombre") String nombre) {
+        List<Producto> productos = productoRepository.findByNombreContaining(nombre);
+        if (productos.isEmpty()) {
+            throw new ResourceNotFound("¡No se encontraron productos con el nombre '".concat(nombre).concat("'!"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productos);
     }
 
     @GetMapping(value = "/productos/Qc")
-    public List<Producto> getProductoByCategoria(@RequestParam("categoria") String categoria) {
-        return productoRepository.findByCategoria(categoria);
+    public ResponseEntity<?> getProductoByCategoria(@RequestParam("categoria") String categoria) {
+        List<Producto> productos = productoRepository.findByCategoria(categoria);
+        if (productos.isEmpty()) {
+            throw new ResourceNotFound("¡No se encontraron productos en la categoría '".concat(categoria).concat("'!"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productos);
     }
 
     @PostMapping(value = "/productos")
-    public Producto createProducto(@Valid @RequestBody Producto producto) {
-        return productoRepository.save(producto);
+    public ResponseEntity<?> createProducto(@Valid @RequestBody Producto producto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoRepository.save(producto));
     }
 
     @PutMapping(value = "/productos/{id}")
-    public Producto updateProducto(@PathVariable("id") Long id, @Valid @RequestBody Producto requestProducto) {
-        Producto producto = productoRepository.findById(id).get();
-        producto.setNombre(requestProducto.getNombre());
-        producto.setCategoria(requestProducto.getCategoria());
-        producto.setDescripcion(requestProducto.getDescripcion());
-        producto.setPrecioUnitario(requestProducto.getPrecioUnitario());
-        return productoRepository.save(producto);
+    public ResponseEntity<?> updateProducto(@PathVariable("id") Long id, @Valid @RequestBody Producto requestProducto) {
+        Optional<Producto> producto = productoRepository.findById(id);
+        if (producto.isEmpty()) {
+            throw new ResourceNotFound("¡No existe el producto solicitado!");
+        }
+        producto.get().setNombre(requestProducto.getNombre());
+        producto.get().setCategoria(requestProducto.getCategoria());
+        producto.get().setDescripcion(requestProducto.getDescripcion());
+        producto.get().setPrecioUnitario(requestProducto.getPrecioUnitario());
+        return ResponseEntity.status(HttpStatus.OK).body(productoRepository.save(producto.get()));
     }
 
     @DeleteMapping(value = "/productos/{id}")
-    public void deleteProducto(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteProducto(@PathVariable("id") Long id) {
+        Optional<Producto> producto = productoRepository.findById(id);
+        if (producto.isEmpty()) {
+            throw new ResourceNotFound("¡El producto que quiere eliminar no existe!");
+        }
         productoRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Eliminado");
     }
 }

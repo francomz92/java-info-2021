@@ -1,10 +1,15 @@
 package com.spring_rest_LevelUno.tienda.controller;
 
 import com.spring_rest_LevelUno.tienda.entity.Usuario;
+import com.spring_rest_LevelUno.tienda.exceptions.ResourceNotFound;
 import com.spring_rest_LevelUno.tienda.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -13,29 +18,43 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping(value = "/usuarios")
-    public Iterable<Usuario> getUsuarios(){
-        return usuarioRepository.findAll();
+    public ResponseEntity<?> getUsuarios(){
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.findAll());
     }
 
     @GetMapping(value = "/usuarios/{id}")
-    public Optional<Usuario> getUsuarioById(@PathVariable("id") Long id) { return usuarioRepository.findById(id); }
+    public ResponseEntity<?> getUsuarioById(@PathVariable("id") Long id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (usuario.isEmpty()) {
+            throw new ResourceNotFound("¡No existe el usuario solicitado!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+    }
 
     @PostMapping(value = "/usuarios")
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public ResponseEntity<?> createUsuario(@Valid @RequestBody Usuario usuario) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuario));
     }
 
     @PutMapping(value = "/usuarios/{id}")
-    public Usuario updateUsuario(@PathVariable("id") Long id, @RequestBody Usuario requestUsuario) {
-        Usuario usuario = usuarioRepository.findById(id).get();
-        usuario.setNombre(requestUsuario.getNombre());
-        usuario.setApellido(requestUsuario.getApellido());
-        usuario.setDireccion(requestUsuario.getDireccion());
-        return usuarioRepository.save(usuario);
+    public ResponseEntity<?> updateUsuario(@PathVariable("id") Long id, @Valid @RequestBody Usuario requestUsuario) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            usuario.get().setNombre(requestUsuario.getNombre());
+            usuario.get().setApellido(requestUsuario.getApellido());
+            usuario.get().setDireccion(requestUsuario.getDireccion());
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuario.get()));
+        }
+        throw new ResourceNotFound("¡No existe el usuario solicitado!");
     }
 
     @DeleteMapping(value = "/usuarios/{id}")
-    public void deleteUsuario(@PathVariable("id") Long id) {
-        usuarioRepository.deleteById(id);
+    public ResponseEntity<?> deleteUsuario(@PathVariable("id") Long id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            usuarioRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Eliminado");
+        }
+        throw new ResourceNotFound("¡No existe el usuario solicitado!");
     }
 }

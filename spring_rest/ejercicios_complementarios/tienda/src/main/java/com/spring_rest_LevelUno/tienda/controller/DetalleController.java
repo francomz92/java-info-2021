@@ -1,8 +1,11 @@
 package com.spring_rest_LevelUno.tienda.controller;
 
 import com.spring_rest_LevelUno.tienda.entity.Detalle;
+import com.spring_rest_LevelUno.tienda.exceptions.ResourceNotFound;
 import com.spring_rest_LevelUno.tienda.repository.DetalleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,31 +17,43 @@ public class DetalleController {
    DetalleRepository detalleRepository;
 
    @GetMapping(value = "/detalles")
-   public Iterable<Detalle> getDetalles() {
-      return detalleRepository.findAll();
+   public ResponseEntity<?> getDetalles() {
+      return ResponseEntity.status(HttpStatus.OK).body(detalleRepository.findAll());
    }
 
    @GetMapping(value = "/detalles/{id}")
-   public Optional<Detalle> getDetalleById(@PathVariable("id") Long id) {
-      return detalleRepository.findById(id);
+   public ResponseEntity<?> getDetalleById(@PathVariable("id") Long id) {
+      Optional<Detalle> detalle = detalleRepository.findById(id);
+      if (detalle.isEmpty()) {
+         throw new ResourceNotFound("¡No existe el detalle solicitado!");
+      }
+      return ResponseEntity.status(HttpStatus.OK).body(detalle);
    }
 
    @PostMapping(value = "/detalles")
-   public Detalle createDetalle(@Valid @RequestBody Detalle requestDetalle) {
+   public ResponseEntity<?> createDetalle(@Valid @RequestBody Detalle requestDetalle) {
       requestDetalle.setTotal();
-      return detalleRepository.save(requestDetalle);
+      return ResponseEntity.status(HttpStatus.CREATED).body(detalleRepository.save(requestDetalle));
    }
 
    @PutMapping(value = "/detalles/{id}")
-   public Detalle updateDetalle(@PathVariable("id") Long id, @Valid @RequestBody Detalle requestDetalle) {
-      Detalle detalle = detalleRepository.findById(id).get();
-      detalle.setCantidad(requestDetalle.getCantidad());
-      detalle.setTotal();
-      return detalleRepository.save(detalle);
+   public ResponseEntity<?> updateDetalle(@PathVariable("id") Long id, @Valid @RequestBody Detalle requestDetalle) {
+      Optional<Detalle> detalle = detalleRepository.findById(id);
+      if (detalle.isEmpty()) {
+         throw new ResourceNotFound("¡No existe el detalle solicitado!");
+      }
+      detalle.get().setCantidad(requestDetalle.getCantidad());
+      detalle.get().setTotal();
+      return ResponseEntity.status(HttpStatus.OK).body(detalleRepository.save(detalle.get()));
    }
 
    @DeleteMapping(value = "/detalles/{id}")
-   public void deleteDetalle(@PathVariable("id") Long id) {
+   public ResponseEntity<?> deleteDetalle(@PathVariable("id") Long id) {
+      Optional<Detalle> detalle = detalleRepository.findById(id);
+      if (detalle.isEmpty()) {
+         throw new ResourceNotFound("¡El detalle que intenta eliminar no existe!");
+      }
       detalleRepository.deleteById(id);
+      return ResponseEntity.status(HttpStatus.OK).body("Eliminado");
    }
 }
