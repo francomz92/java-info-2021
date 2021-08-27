@@ -1,6 +1,5 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -9,6 +8,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "detalle")
 public class Detalle {
+
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
@@ -17,11 +17,15 @@ public class Detalle {
    @JoinColumn(name = "FK_producto")
    private Producto producto;
 
-//   @JsonBackReference
    @JsonIgnore
    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "FK_carrito")
    private Carrito  carrito;
+
+   @JsonIgnore
+   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @JoinColumn(name = "FK_orden")
+   private Orden orden;
 
    private Integer cantidad;
    private BigDecimal total;
@@ -55,6 +59,8 @@ public class Detalle {
 
    public Carrito getCarrito() { return carrito; }
 
+   public Orden getOrden() { return orden; }
+
    //  -----> Setters Methods <-----
 
    public void setProducto(Producto producto) { this.producto = producto; }
@@ -66,6 +72,8 @@ public class Detalle {
    public void setCarrito(Carrito carrito) {
       this.carrito = carrito;
    }
+
+   public void setOrden(Orden orden) { this.orden = orden; }
 
    //   ------> Customs Methods <-----
 

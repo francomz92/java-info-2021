@@ -1,10 +1,9 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ public class Carrito {
     @CreationTimestamp
     private Instant fechaCreacion;
 
-//    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_usuario")
     private Usuario usuario;
@@ -28,11 +26,12 @@ public class Carrito {
     @Transient
     private String comprador;
 
-//    @JsonManagedReference
     @OneToMany(mappedBy = "carrito", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Detalle> detalles = new ArrayList<>();
 
     private String estado;
+
+    private BigDecimal total;
 
     public Carrito(){}
 
@@ -40,6 +39,7 @@ public class Carrito {
         this.estado = "En curso";
         this.usuario = usuario;
         this.detalles = detalles;
+        this.setFinalTotal();
     }
 
 
@@ -65,6 +65,8 @@ public class Carrito {
         return this.usuario.getNombre().concat(" ").concat(this.usuario.getApellido());
     }
 
+    public BigDecimal getTotal() { return total; }
+
     // -----> Setters Methods <-----
 
     public void setFechaCreacion(Instant fechaCreacion) {
@@ -83,7 +85,17 @@ public class Carrito {
         this.estado = estado;
     }
 
+    public void setTotal(BigDecimal total) { this.total = total; }
+
     public void addDetalles(Detalle detalle) {
         this.detalles.add(detalle);
+    }
+
+    public void setFinalTotal() {
+        BigDecimal monto = BigDecimal.ZERO;
+        for (Detalle detalle: this.detalles) {
+            monto = monto.add(detalle.getTotal());
+        }
+        this.total = monto;
     }
 }

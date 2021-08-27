@@ -18,11 +18,4 @@ public class ApiHandlerExceptions {
    public CarritoErrorMessage carritoNotFound(RuntimeException ex, HttpServletRequest request) {
       return new CarritoErrorMessage(ex, request.getRequestURI());
    }
-
-//   @ResponseStatus(HttpStatus.NOT_FOUND)
-//   @ExceptionHandler(value = {ResourceNotFound.class})
-//   @ResponseBody
-//   public CarritoErrorMessage usuarioNotFound(RuntimeException ex, HttpServletRequest request) {
-//      return new CarritoErrorMessage(ex, request.getRequestURI());
-//   }
 }

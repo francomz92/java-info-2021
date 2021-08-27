@@ -1,7 +1,6 @@
 package com.spring_rest_LevelUno.tienda.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -32,10 +31,13 @@ public class Usuario {
     @CreationTimestamp
     private Instant fechaAlta;
 
-//    @JsonManagedReference
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Carrito.class, orphanRemoval = true)
     private List<Carrito> carritos = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Orden.class, orphanRemoval = true)
+    private List<Orden> compras = new ArrayList<>();
 
     public Usuario(){}
 
@@ -66,6 +68,8 @@ public class Usuario {
 
     public List<Carrito> getCarritos() { return carritos; }
 
+    public List<Orden> getCompras() { return compras; }
+
     //  -----> Setters Methods <-----
 
     public void setId(Long id) { this.id = id; }
@@ -90,7 +94,9 @@ public class Usuario {
         this.carritos = carritos;
     }
 
-    public void addCarrito(Carrito carrito) {
-        this.carritos.add(carrito);
-    }
+    public void addCarrito(Carrito carrito) { this.carritos.add(carrito); }
+
+    public void setCompras(List<Orden> compras) { this.compras = compras; }
+
+    public void addCompra(Orden compra) { this.compras.add(compra); }
 }

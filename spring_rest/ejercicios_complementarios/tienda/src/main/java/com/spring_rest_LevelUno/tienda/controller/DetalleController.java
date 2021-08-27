@@ -2,7 +2,9 @@ package com.spring_rest_LevelUno.tienda.controller;
 
 import com.spring_rest_LevelUno.tienda.entity.Detalle;
 import com.spring_rest_LevelUno.tienda.exceptions.ResourceNotFound;
+import com.spring_rest_LevelUno.tienda.repository.CarritoRepository;
 import com.spring_rest_LevelUno.tienda.repository.DetalleRepository;
+import com.spring_rest_LevelUno.tienda.service.DetalleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,12 @@ import java.util.Optional;
 @RestController
 public class DetalleController {
    @Autowired
-   DetalleRepository detalleRepository;
+   private DetalleRepository detalleRepository;
+   @Autowired
+   private CarritoRepository carritoRepository;
+
+   @Autowired
+   private DetalleService detalleService;
 
    @GetMapping(value = "/detalles")
    public ResponseEntity<?> getDetalles() {
@@ -42,8 +49,7 @@ public class DetalleController {
       if (detalle.isEmpty()) {
          throw new ResourceNotFound("¡No existe el detalle solicitado!");
       }
-      detalle.get().setCantidad(requestDetalle.getCantidad());
-      detalle.get().setTotal();
+      detalleService.detalleEdition(detalle.get(), requestDetalle);
       return ResponseEntity.status(HttpStatus.OK).body(detalleRepository.save(detalle.get()));
    }
 

@@ -48,7 +48,7 @@ public class Producto {
 
     public String getCategoria() { return categoria; }
 
-//  -----> Setters Methods <-----
+    //  -----> Setters Methods <-----
 
     public void setId(Long id) { this.id = id; }
 

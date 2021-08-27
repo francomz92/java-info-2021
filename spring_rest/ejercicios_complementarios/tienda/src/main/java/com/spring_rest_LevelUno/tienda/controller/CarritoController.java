@@ -4,8 +4,8 @@ import com.spring_rest_LevelUno.tienda.entity.Carrito;
 import com.spring_rest_LevelUno.tienda.entity.Usuario;
 import com.spring_rest_LevelUno.tienda.exceptions.ResourceNotFound;
 import com.spring_rest_LevelUno.tienda.repository.CarritoRepository;
-import com.spring_rest_LevelUno.tienda.repository.DetalleRepository;
 import com.spring_rest_LevelUno.tienda.repository.UsuarioRepository;
+import com.spring_rest_LevelUno.tienda.service.CarritoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +21,9 @@ public class CarritoController {
    CarritoRepository carritoRepository;
    @Autowired
    UsuarioRepository usuarioRepository;
+
    @Autowired
-   DetalleRepository detalleRepository;
+   CarritoService carritoService;
 
    @GetMapping(value = "/usuarios/{id}/carritos")
    public ResponseEntity<?> getCarritosByUsuario(@PathVariable("id") Long id) {
@@ -49,13 +50,7 @@ public class CarritoController {
       if (usuario.isEmpty()) {
          throw new ResourceNotFound("¡No se pueden agregar carritos a un usuario inexistente!");
       }
-      requestCarrito.setUsuario(usuario.get());
-      requestCarrito.getDetalles().forEach(detalle -> {
-         detalle.setTotal();
-         detalle.setCarrito(requestCarrito);
-         detalleRepository.save(detalle);
-      });
-      usuario.get().addCarrito(requestCarrito);
+      carritoService.prepareCarritoCreation(usuario.get(), requestCarrito);
       return ResponseEntity.status(HttpStatus.CREATED).body(carritoRepository.save(requestCarrito));
    }
 
@@ -66,14 +61,7 @@ public class CarritoController {
       if (usuario.isEmpty() || carrito.isEmpty() || !usuario.get().getCarritos().contains(carrito.get())) {
          throw new ResourceNotFound("¡No se encontró el carrito solicitado!");
       }
-      requestCarrito.getDetalles().forEach(detalle -> {
-         detalle.setCarrito(carrito.get());
-         detalle.setTotal();
-         if (detalle.getCantidad().equals(0)) {
-            requestCarrito.getDetalles().remove(detalle);
-         }
-      });
-      carrito.get().setDetalles(requestCarrito.getDetalles());
+      carritoService.prepareCarritoEdition(usuario.get(), carrito.get(), requestCarrito);
       return ResponseEntity.status(HttpStatus.OK).body(carritoRepository.saveAndFlush(carrito.get()));
    }
 

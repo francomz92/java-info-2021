@@ -2,7 +2,10 @@ package com.spring_rest_LevelUno.tienda.controller;
 
 import com.spring_rest_LevelUno.tienda.entity.Producto;
 import com.spring_rest_LevelUno.tienda.exceptions.ResourceNotFound;
+import com.spring_rest_LevelUno.tienda.repository.CarritoRepository;
+import com.spring_rest_LevelUno.tienda.repository.DetalleRepository;
 import com.spring_rest_LevelUno.tienda.repository.ProductoRepository;
+import com.spring_rest_LevelUno.tienda.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,10 @@ public class ProductoController {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private ProductoService productoService;
+
 
     @GetMapping(value = "/productos")
     public ResponseEntity<?> getProductos(){
@@ -62,10 +69,7 @@ public class ProductoController {
         if (producto.isEmpty()) {
             throw new ResourceNotFound("¡No existe el producto solicitado!");
         }
-        producto.get().setNombre(requestProducto.getNombre());
-        producto.get().setCategoria(requestProducto.getCategoria());
-        producto.get().setDescripcion(requestProducto.getDescripcion());
-        producto.get().setPrecioUnitario(requestProducto.getPrecioUnitario());
+        productoService.productoEdition(producto.get(), requestProducto);
         return ResponseEntity.status(HttpStatus.OK).body(productoRepository.save(producto.get()));
     }
 
